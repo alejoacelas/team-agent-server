@@ -1,0 +1,10 @@
+[Unit]
+Description=Nightly workspace backup
+
+[Timer]
+OnCalendar=*-*-* 02:30
+RandomizedDelaySec=30min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

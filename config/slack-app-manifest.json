@@ -1,0 +1,26 @@
+{
+  "display_information": {
+    "name": "Team agent server import",
+    "description": "Read-only channel and thread import for the team agent server"
+  },
+  "oauth_config": {
+    "scopes": {
+      "user": [
+        "channels:history",
+        "channels:read",
+        "groups:history",
+        "groups:read",
+        "files:read"
+      ]
+    },
+    "redirect_urls": [
+      "http://localhost:8765/"
+    ],
+    "pkce_enabled": true
+  },
+  "settings": {
+    "org_deploy_enabled": false,
+    "socket_mode_enabled": false,
+    "token_rotation_enabled": false
+  }
+}

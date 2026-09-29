@@ -1,0 +1,27 @@
+[project]
+name = "workspace-import"
+version = "0.1.0"
+description = "Resumable, scoped data imports for a private DigitalOcean VM"
+requires-python = ">=3.11"
+dependencies = [
+    "requests>=2.32,<3",
+    "google-auth>=2.35,<3",
+    "google-auth-oauthlib>=1.2,<2",
+    "gdoc",
+]
+
+[project.scripts]
+workspace-import = "workspace_import.cli:main"
+
+[dependency-groups]
+dev = ["pytest>=8,<10", "ruff>=0.9,<1"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.uv.sources]
+gdoc = { git = "https://github.com/LucaDeLeo/gdoc.git", rev = "dbfa4c34bfa699ee8dd9839da85eea1fac177d44" }

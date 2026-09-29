@@ -1,0 +1,16 @@
+[Unit]
+Description=Encrypted off-host backup of member work files
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+UMask=0077
+ExecStart=/bin/bash /opt/workspace/current/infra/backup.sh
+ProtectSystem=strict
+ProtectHome=read-only
+CacheDirectory=restic
+Environment=RESTIC_CACHE_DIR=/var/cache/restic
+PrivateTmp=true
+NoNewPrivileges=true
+Nice=10

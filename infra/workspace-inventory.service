@@ -1,0 +1,13 @@
+[Unit]
+Description=Workspace source inventory for server owners (metadata only)
+
+[Service]
+Type=oneshot
+UMask=0077
+ExecStart=/usr/bin/python3 /opt/workspace/current/scripts/owner_inventory.py --output /var/lib/workspace/inventory/latest.json
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/var/lib/workspace
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateNetwork=true
