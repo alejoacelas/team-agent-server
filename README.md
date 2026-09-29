@@ -30,11 +30,22 @@ Give each person on your team Claude Code or Codex with their entire work histor
 
 - **Add only what you need.** Backups, web and LinkedIn search, Salesforce and Airtable are [optional add-ons](docs/owners-overview.md#optional-add-ons).
 
+## Data sources
+
+Tested live in the pilot:
+
+- **Google Workspace:** Gmail, Calendar, Tasks and Drive, including folders shared by others. Docs, Sheets and Slides are exported with readable text.
+- **Slack:** channels, threads, files and canvases the member can see. Members can't yet connect Slack themselves; the pilot used an existing app's token.
+- **Airtable:** a 75-record test base, downloaded completely.
+- **Web and LinkedIn search** through [Exa](https://exa.ai).
+
+Salesforce has an importer with automated tests but hasn't run against a real account. Members can also upload archives such as Google Takeout. Adding another source means writing one importer module in `workspace_import/`; the existing ones are 50–230 lines each.
+
 ## How it works
 
 Each member has a Linux account on a DigitalOcean server, with their home on an encrypted volume. A monthly job downloads their Gmail, Calendar, Tasks and Drive through a read-only Google app, replaces the previous copy and checks every file against recorded hashes. Members connect over SSH with a key the owners share through a password manager. Instructions installed in each home tell the agent where the data is and how to use the import command. Administrators can read every member's data, as on any server they run.
 
-A one-member pilot in September 2026 tested the Google imports, the monthly refresh, the server hardening and the Google sign-in.
+A one-member pilot in September 2026 also tested the monthly refresh, the server hardening and the Google sign-in.
 
 ## Documents
 
