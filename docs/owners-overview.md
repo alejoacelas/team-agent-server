@@ -6,7 +6,7 @@ A private server where each member has a Linux account holding a read-only copy 
 
 The server owners build the server, create member accounts and hold the credentials. Members never get administrator access. Follow the [setup steps](owners-setup.md); adding each member then takes about ten minutes.
 
-**What was tested.** A one-member pilot on DigitalOcean in September 2026 passed the Gmail, Calendar, Tasks and Drive imports (2,534 Drive items), including a folder shared by someone else, and the monthly refresh. The host hardening passed on the pilot server, including after a reboot. The paste-back Google sign-in worked live with a Workspace account. Among the add-ons, the backup job was tested against a local target rather than Spaces, web search worked with a test key, and the Airtable importer downloaded a test base completely (75 of 75 records). **Untested:** shared drives, Salesforce (automated tests only), and backups to Spaces. Slack sign-in isn't built yet.
+**What was tested.** A one-member pilot on DigitalOcean in September 2026 passed the Gmail, Calendar, Tasks and Drive imports (2,534 Drive items), including a folder shared by someone else, and the monthly refresh. The host hardening passed on the pilot server, including after a reboot. The paste-back Google sign-in worked live with a Workspace account. Among the add-ons, the backup job was tested against a local target rather than Spaces, web search worked with a test key, and the Airtable importer downloaded a test base completely (75 of 75 records). **Untested:** shared drives, Salesforce (automated tests only), and backups to Spaces. Slack imports worked with an existing app's token, but members can't yet connect Slack themselves.
 
 ## The default install
 
