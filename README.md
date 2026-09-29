@@ -4,8 +4,6 @@ Give each person on your team Claude Code or Codex with their entire work histor
 
 > Go through all my client calls and emails from the last two years. What questions do clients ask most often, and how have my answers changed?
 
-Built for teams of 10–50 people on Google Workspace, using Macs.
-
 ## For members
 
 - **Ask questions across everything at once.** Claude's and ChatGPT's connectors fetch a few emails or documents per request. Here the agent has the whole history as files, so it can read and classify thousands of items in one go.
