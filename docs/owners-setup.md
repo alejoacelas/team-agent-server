@@ -21,7 +21,7 @@ In DigitalOcean, [create a Droplet](https://docs.digitalocean.com/products/dropl
 |---|---|
 | Region | The one closest to your team, for example London (`LON1`) |
 | Image | Ubuntu 24.04 (LTS) x64 |
-| Size | See the [README](../README.md#cost-and-effort), for example Basic → 8 vCPU / 16 GB |
+| Size | See the [README](../README.md#for-server-owners), for example Basic → 8 vCPU / 16 GB |
 | Volume | Add a volume: 200–500 GB, named exactly `workspace-home`, **Manually Format & Mount** |
 | Authentication | SSH key: your own public key |
 | Backups | Off (they would skip the volume, so they'd hold no member data) |

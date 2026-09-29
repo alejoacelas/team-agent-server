@@ -1,55 +1,49 @@
 # Team agent server
 
-A private server that gives each person on a team a read-only copy of their work data (Gmail, Calendar, Tasks and Drive, plus shared folders and optional CRM sources) as ordinary files. They analyse it with Claude Code or Codex running on the server instead of their laptop. It's built for organisations of 10–50 people on Google Workspace, with Macs.
+Give each person on your team Claude Code or Codex with their entire work history at hand: every email, calendar entry and Drive file, on a server your organisation controls.
 
-Example of what a member can ask:
+> Go through all my client calls and emails from the last two years. What questions do clients ask most often, and how have my answers changed?
 
-> I suspect clients who raised budget concerns in their first call were the ones who later stopped working with us. Check that across my call transcripts and follow-up emails, and show me a few examples of how you judged "budget concerns". Ask me questions to clarify before you start.
+Built for teams of 10–50 people on Google Workspace, using Macs.
 
-## What it solves
+## For members
 
-1. **Work across the whole history, not one lookup at a time.** Connectors in Claude or ChatGPT fetch a handful of emails or documents per request. Here the agent has every email, calendar entry and Drive file on disk, so it can search, script and classify thousands of items with ordinary tools (`rg`, `sqlite3`, Python). In the pilot, one person's Drive came to 2,534 items. Long jobs run in the background and report back when they're done.
-2. **Keep the data under central control.** The data sits on one server the organisation owns, on an encrypted volume, with one Linux account per member so no one can read another member's files. Access to Google is read-only. The monthly refresh replaces the old copy, so anything deleted at the source leaves the server within a month. Offboarding someone means deleting their account. Server owners hold the only administrator access.
-3. **Run the agent somewhere other than a laptop.** Members connect the Claude or Codex desktop app to the server over SSH, or use Claude Code or Codex from Terminal. Sessions and background jobs run on the server, so closing the laptop doesn't stop them and no data is copied to members' machines.
+- **Ask questions across everything at once.** Claude's and ChatGPT's connectors fetch a few emails or documents per request. Here the agent has the whole history as files, so it can read and classify thousands of items in one go.
+- **Set up in about 15 minutes.** The server owners create the account in advance. The member pastes one command into Terminal, adds the server in the Claude or Codex app they already use, and signs in to Google.
+- **Close the laptop and the work continues.** The agent runs on the server, so long analyses finish in the background and report back later.
 
-## Cost and effort
+## For server owners
 
-**Running costs** (DigitalOcean, [September 2026 prices](https://www.digitalocean.com/pricing/droplets)):
+- **The data stays under your control.** It lives on one server you own, not on members' laptops. Access to Google is read-only, members can't see each other's data, and anything deleted at the source is gone from the server after the next monthly refresh. Offboarding someone takes minutes.
+- **It costs about $6 per member per month** when the server is full, on top of the Claude or ChatGPT plans members already have ([DigitalOcean prices](https://www.digitalocean.com/pricing/droplets), September 2026):
 
-| Team size | Server | Encrypted storage ([$0.10/GB](https://docs.digitalocean.com/products/volumes/details/pricing/)) | Total per month |
-|---|---|---|---|
-| Up to ~20 members | Basic, 8 vCPU / 16 GB: $96 | 200 GB: $20 | ~$116 |
-| Up to ~50 members | General Purpose, 8 vCPU / 32 GB: $252 | 500 GB: $50 | ~$302 |
+  | Team size | Server and encrypted storage | Per month |
+  |---|---|---|
+  | Up to ~20 | 8 vCPU / 16 GB, 200 GB | ~$116 |
+  | Up to ~50 | 8 vCPU / 32 GB, 500 GB | ~$302 |
 
-Each open agent session uses 1–2 GB of memory, so size the server for how many people work at once, not headcount; it can be resized later. On top of this: the Claude or ChatGPT plans members already use, and any [optional add-ons](docs/owners-overview.md#optional-add-ons) (backups from $5/month, web search at about $0.007 per search).
+- **Setup takes an afternoon:**
+  1. Create a DigitalOcean server with an encrypted volume.
+  2. Run two commands to install the software and lock the server down.
+  3. Create a read-only Google sign-in app for your organisation.
+  4. Add each member with one script, about ten minutes each.
 
-**Setup for members: about 15 minutes, in one sitting.** Server owners create each account in advance and share a key through a password manager. The member pastes one command into Terminal, adds the server in their Claude or Codex app, and signs in to Google when the agent asks.
+  I had Claude Code do all of this through browser control. I stepped in only to sign in to accounts, grant access and enter payment details.
 
-**Setup for server owners: an afternoon.** The steps are:
+- **Add only what you need.** Backups, web and LinkedIn search, Salesforce and Airtable are [optional add-ons](docs/owners-overview.md#optional-add-ons).
 
-1. Create a DigitalOcean server with an encrypted volume, using the first-boot script in this repository.
-2. Run two commands to install the software and harden the server (encrypted `/home`, SSH keys only, hidden processes between users, automatic security updates).
-3. Create an internal Google OAuth app with read-only scopes and copy its file to the server.
-4. Add each member with one script (about ten minutes each).
+## How it works
 
-I had Claude Code do all of these steps through browser control. I stepped in only to sign in to accounts, grant access and enter payment details.
+Each member has a Linux account on a DigitalOcean server, with their home on an encrypted volume. A monthly job downloads their Gmail, Calendar, Tasks and Drive through a read-only Google app, replaces the previous copy and checks every file against recorded hashes. Members connect over SSH with a key the owners share through a password manager. Instructions installed in each home tell the agent where the data is and how to use the import command. Administrators can read every member's data, as on any server they run.
+
+A one-member pilot in September 2026 tested the Google imports, the monthly refresh, the server hardening and the Google sign-in.
 
 ## Documents
 
-- [Overview for server owners](docs/owners-overview.md): what gets installed, what it means for privacy, and optional add-ons.
-- [Setup steps](docs/owners-setup.md): server setup, adding and removing members, maintenance.
-- [Member guide](docs/member-guide.md): one-time setup and everyday use. Fill in the one placeholder, `[OWNERS_CONTACT]`, before sending it.
-- [What the server can and can't do](docs/capabilities.md).
-- [Instructions for members' agents](docs/member-start.md), installed as `AGENTS.md` and `CLAUDE.md` in every member's home so Claude and Codex load them automatically.
+- [Overview for server owners](docs/owners-overview.md): what gets installed, privacy trade-offs, add-ons.
+- [Setup steps](docs/owners-setup.md): building the server, adding and removing members, maintenance.
+- [Member guide](docs/member-guide.md): setup and everyday use. Replace `[OWNERS_CONTACT]` before sending it.
+- [What it can and can't do](docs/capabilities.md).
+- [Instructions for members' agents](docs/member-start.md).
 
-## Contents
-
-| Path | Purpose |
-|---|---|
-| `workspace_import/` | The `workspace-import` command: Google sign-in, resumable imports, integrity checks, monthly refresh |
-| `infra/` | First-boot script, host hardening, installer, member creation, Codex installer, scheduled jobs |
-| `scripts/` | Deployment, host and member checks, metadata report for server owners |
-| `config/slack-app-manifest.json` | Read-only Slack app definition, for when Slack sign-in is built |
-| `tests/` | Automated tests: `uv sync --frozen && uv run pytest -q` |
-
-Never commit credentials, exports or member data.
+The code is in `workspace_import/` (the import command), `infra/` (server setup) and `scripts/` (deployment and checks). Run the tests with `uv sync --frozen && uv run pytest -q`. Never commit credentials or member data.

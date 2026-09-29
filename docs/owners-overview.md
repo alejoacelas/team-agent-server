@@ -16,7 +16,7 @@ The [setup steps](owners-setup.md) install this and nothing else.
 
 - **DigitalOcean, in the region closest to your team.** DigitalOcean's [data processing agreement](https://www.digitalocean.com/legal/data-processing-agreement) is part of its terms.
 - **One shared server, one Linux account per member.** Members can't read each other's files or see each other's processes. Separate servers per member would also isolate members from each other's administrators, but multiply maintenance.
-- **Size for concurrent use.** Each open agent session uses 1–2 GB of memory, alongside large downloads. The [README](../README.md#cost-and-effort) gives sizes and prices; the server can be resized later.
+- **Size for concurrent use.** Each open agent session uses 1–2 GB of memory, alongside large downloads. The [README](../README.md#for-server-owners) gives sizes and prices; the server can be resized later.
 
 ### Data
 

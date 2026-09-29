@@ -4,7 +4,7 @@ Your team workspace is a private server holding your work history as ordinary fi
 
 Things you can ask:
 
-> I suspect clients who raised budget concerns in their first call were the ones who later stopped working with us. Check that across my call transcripts and follow-up emails. Show me a few examples of how you judged "budget concerns". Ask me questions to clarify before you start.
+> Go through all my client calls and emails from the last two years. What questions do clients ask most often, and how have my answers changed? Show me a few examples, and ask me questions to clarify before you start.
 
 > Which resources do I recommend most in my follow-up emails, and has that changed over time?
 
